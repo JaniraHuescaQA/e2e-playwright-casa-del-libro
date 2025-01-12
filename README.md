@@ -1,10 +1,10 @@
-# Playwright Python Template
+# Playwright E2E Casa del Libro
 
-Template to create a **Playwright** project with **Python** for end-to-end testing.
+End-to-end (E2E) tests for the Casa del Libro web page, automated using Playwright and Python. This repository includes tests for core functionalities such as navigation, search, shopping cart, and user signup.
 
 ## Description
 
-This project performs E2E tests on the [Bootcamp QA](https://bootcampqa.com) website, generating a report of results and video recordings. Tests are executed on **Chrome** (desktop).
+This project performs E2E tests on the [Casa del Libro](https://www.casadellibro.com/) website, generating a report of results and video recordings. Tests are executed on **Chrome** (desktop).
 
 ## Technologies
 
@@ -15,7 +15,7 @@ This project performs E2E tests on the [Bootcamp QA](https://bootcampqa.com) web
 
 You can view the test status using the following **GitHub Actions** badge:
 
-![Test Workflow](https://github.com/Bootcamp-QA/playwright-python-template/actions/workflows/playwright_tests.yml/badge.svg)
+![Test Workflow](https://github.com/JaniraHuescaQA/e2e-playwright-casa-del-libro/actions/workflows/playwright_tests.yml/badge.svg)
 
 ## Requirements
 
