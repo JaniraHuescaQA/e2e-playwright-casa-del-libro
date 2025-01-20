@@ -7,8 +7,10 @@ def test_visit_menu_links(page:Page):
     page.goto("https://www.casadellibro.com/")
 
     print("When the user accepts the cookies")
-    # Locate the element by role (button) to accept the cookies
-    page.get_by_role("button", name="Aceptar")
+    # Wait until the banner to accept the cookies appears
+    page.wait_for_selector("button:has-text('Aceptar')")
+    # Locate the element by role (button) to accept the cookies and click on it
+    page.get_by_role("button", name="Aceptar").click()
 
     print("And the user clicks on the 'Imprescindibles' link")
     # Locate the element by role (link) and for exact text, and click on it
