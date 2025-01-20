@@ -45,32 +45,27 @@ def test_signup_with_invalid_email(page:Page):
     # Locate the element by role (button) to click on it
     page.get_by_role("button", name="Registrarme").click()
 
-    print("Then the user should be an error message")
+    print("Then the user should see an error message indicating that the email must be valid")
     # Locate the element by text, and check that is visibe 
     expect(page.get_by_text("El email debe ser válido", exact=True)).to_be_visible()
 
-# SCENARIO 2 (valid data)
-def generate_random_email():
-    unique_text = uuid.uuid4().hex
-    random_email = unique_text + "@test.com"
-    return random_email
-
-def test_signup_with_valid_data(page:Page):
+# SCENARIO 2 (empty first name)
+def test_signup_with_empty_first_name(page:Page):
     print("Given the user visits signup page")
     # Navigation to open the URL in the browser
     page.goto("https://www.casadellibro.com/register-access")
 
     print("When the user accepts the cookies")
-    # Wait until the banner to accept the cookies apppears
+    # Wait until the banner to accept the cookies appears
     page.wait_for_selector("button:has-text('Aceptar')")
-    # Locate the element by role (button) to accept the cookies
+    # Locate the element by role (button) to accept the cookies and click on it
     page.get_by_role("button", name="Aceptar").click()
 
-    print("And the user fills the first name with a valid name")
+    print("And the user leaves empty the first name field")
     # Clear the first name field
     page.get_by_label("Nombre*").clear()
-    # Fill the field with a valid name
-    name = "Test Name"
+    # Leave the name field empty
+    name = ""
     page.get_by_label("Nombre*").fill(name)
 
     print("And the user fills the last name with a valid surname")
@@ -80,11 +75,11 @@ def test_signup_with_valid_data(page:Page):
     surname = "Test Surname"
     page.get_by_label("Apellidos*").fill(surname)
 
-    print("And the user fills the email with a valid email")
+    print("And the user fills the email with an invalid email")
     # Clear the email field
     page.get_by_label("Email*").clear()
-    # Fill the field with a random valid email
-    email = generate_random_email()
+    # Fill the field with an valid email
+    email = "test@gmail.com"
     page.get_by_label("Email*").fill(email)
 
     print("And the user fills the email with a valid password")
@@ -98,24 +93,6 @@ def test_signup_with_valid_data(page:Page):
     # Locate the element by role (button) to click on it
     page.get_by_role("button", name="Registrarme").click()
 
-    print("Then the user should be on 'Registry ok' page")
-    # Added 2 conditions because the first option was working well until the webpage has detected that 'random' emails were trying to register to the website
-    # Condition when the webpage allows the user to register
-    if page.url == "https://www.casadellibro.com/registry-ok":
-        print("User successfully registered")
-        # Check that URL page has the exact URL
-        expect(page).to_have_url("https://www.casadellibro.com/registry-ok")
-        # Locate the element by role (heading) and for exact text, and check that is visibe
-        expect(page.get_by_role("heading", name=f"Gracias {name}", exact=True)).to_be_visible()
-    # Condition when the webpage does not allow the user to register
-    else:
-        # Wait explicitly for the error message to appear in the div
-        page.locator("div#register-error-msg").wait_for(state="visible", timeout=5000)
-        # Check if the error message appears
-        if page.locator("div#register-error-msg").is_visible():
-            print("Error message displayed: Registration failed")
-            # Verify that the error message contains the expected text
-            expect(page.locator("div#register-error-msg")).to_have_text("Se ha producido un error, por favor inténtalo más tarde.")
-        else:
-            # Raise exception with a message in order to help with the depuration
-            raise AssertionError("Unexpected outcome: Neither success nor expected error message found.")
+    print("Then the user should see an error message indicating that this field is mandatory")
+    # Locate the element by text, and check that is visibe 
+    expect(page.get_by_text("Este campo es obligatorio", exact=True)).to_be_visible()  
