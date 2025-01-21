@@ -1,5 +1,4 @@
 from playwright.sync_api import Page, expect
-import uuid
 
 # SCENARIO 1 (invalid email)
 def test_signup_with_invalid_email(page:Page):
