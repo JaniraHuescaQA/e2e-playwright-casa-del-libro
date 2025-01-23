@@ -31,13 +31,16 @@ def test_valid_search(page:Page):
     # Press intro
     page.locator("[data-test=\"search-input\"]").press("Enter")
 
-    print("Then the user should be redirected to the page with its search")
+    print("Then the user should be redirected to the page with its search") 
+    # Verify that the query contains the search in the url
     expect(page).to_have_url("https://www.casadellibro.com/?query=harry%20potter")
 
     print("And the user should see a message indicating how many results there are with its search")
+    # Verify that there are results for the search and that the message is visible
     expect(page.get_by_text(f"resultados para {content_searched}")).to_be_visible()
 
     print("And the user should see results containing its search")
+    # Verify that the results shown are related to the search performed
     expect(page.locator("[data-test=\"base-grid\"]")).to_contain_text(content_searched)
 
 # SCENARIO 2 (invalid search)
@@ -72,8 +75,10 @@ def test_valid_search(page:Page):
     page.locator("[data-test=\"search-input\"]").press("Enter")
 
     print("Then the user should be redirected to the page with its search")
+    # Verify that the query contains the search in the url
     expect(page).to_have_url("https://www.casadellibro.com/?query=..")
 
     print("And the user should see a message indicating that no results were found")
+    # Verify that a message indicating that there are no results is visible and contains the search performed
     expect(page.locator("[data-test=\"no-results-message\"]")).to_be_visible()
     expect(page.locator("[data-test=\"no-results-message\"]")).to_contain_text("No se han encontrado resultados para \"..\"")
