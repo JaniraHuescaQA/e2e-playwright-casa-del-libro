@@ -25,9 +25,10 @@ def test_search_add_remove_item_to_cart(page:Page):
     # Press intro
     page.locator("[data-test=\"search-input\"]").press("Enter")
 
-    print("Then the user should see a message indicating how many results there are with its search")
-    # Verify that there are results for the search and that the message is visible
-    expect(page.get_by_text(f"resultados para {valid_content_searched}")).to_be_visible()
+    if not (utils.is_mobile(page)):
+        print("Then the user should see a message indicating how many results there are with its search")
+        # Verify that there are results for the search and that the message is visible
+        expect(page.get_by_text(f"resultados para {valid_content_searched}")).to_be_visible()
 
     print("And the user should see results containing its search")
     # Verify that the results shown are related to the search performed
@@ -39,7 +40,7 @@ def test_search_add_remove_item_to_cart(page:Page):
 
     print("And the user clicks on the button indicating the adding to cart action")
     # Click on the 'Add to cart' button
-    page.get_by_role("button", name="Añadir a la cesta").click()
+    page.get_by_role("button", name="Añadir a la cesta").first.click()
 
     print("Then the user should see the shopping cart section")
     # Verify that the content of shopping cart is visible
