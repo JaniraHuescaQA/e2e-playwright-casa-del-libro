@@ -16,8 +16,8 @@ def test_visit_menu_links(page:Page):
     print("And the user clicks on the 'Imprescindibles' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")  
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="Imprescindibles", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -39,8 +39,8 @@ def test_visit_menu_links(page:Page):
     print("When the user clicks on the 'Ficción' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="Ficción", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -62,8 +62,8 @@ def test_visit_menu_links(page:Page):
     print("When the user clicks on the 'No Ficción' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="No Ficción", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -85,8 +85,8 @@ def test_visit_menu_links(page:Page):
     print("When the user clicks on the 'Infantil' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="Infantil", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -108,8 +108,8 @@ def test_visit_menu_links(page:Page):
     print("When the user clicks on the 'Juvenil' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="Juvenil", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -131,8 +131,8 @@ def test_visit_menu_links(page:Page):
     print("When the user clicks on the 'Cómic y Manga' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="Cómic y Manga", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -154,8 +154,8 @@ def test_visit_menu_links(page:Page):
     print("When the user clicks on the 'English books' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="English books", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -177,8 +177,8 @@ def test_visit_menu_links(page:Page):
     print("When the user clicks on the 'Llibres en català' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="Llibres en català", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -200,8 +200,8 @@ def test_visit_menu_links(page:Page):
     print("When the user clicks on the 'Papelería' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
         # Locate the element by role (button) and for exact text, and click on it
         page.get_by_role("button", name="Papelería", exact=True).click()
         # Locate the element by role (link), and click on it
@@ -220,11 +220,34 @@ def test_visit_menu_links(page:Page):
     # Locate the element by role (heading) and for exact text, and check that is visibe
     expect(page.get_by_role("heading", name="Papelería y regalo", exact=True)).to_be_visible
 
+    print("When the user clicks on the 'eBooks' link")
+    if(utils.is_mobile(page)):
+        # Locate the element menu by locator, and click on it
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
+        # Locate the element by role (button) and for exact text, and click on it
+        page.get_by_role("button", name="eBooks", exact=True).first.click()
+        # Locate the element by role (link), and click on it
+        page.get_by_role("link", name="Todo eBooks").click()
+    else:
+        # Locate the element by role (link) and for exact text, and click on it
+        page.get_by_role("link", name="eBooks", exact=True).nth(2).click()
+    
+    print("Then the user should be on 'eBooks' page")
+    # Check that URL page has the exact URL
+    expect(page).to_have_url("https://www.casadellibro.com/ebooks")
+    # Check that URL page contains the word 'ebooks'
+    expect(page).to_have_url(re.compile("ebooks"))
+    # Check that title page has the exact text 'Los mejores eBooks | Casa del Libro'
+    expect(page).to_have_title("Los mejores eBooks | Casa del Libro")
+    # Locate the element by role (heading) and for text, and check that is visibe
+    expect(page.get_by_role("heading", name="eBooks")).to_be_visible
+
     print("When the user clicks on the 'Ofertas' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
-        page.wait_for_selector("button[name=\"menu\"]")
-        page.locator("button[name=\"menu\"]").click()
+        page.wait_for_timeout(2000)
+        page.locator("button[name='menu']").click()
     # Locate the element by role (link) and for exact text, and click on it
     page.get_by_role("link", name="Ofertas", exact=True).click()
     
