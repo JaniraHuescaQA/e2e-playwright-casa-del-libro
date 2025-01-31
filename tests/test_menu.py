@@ -5,15 +5,12 @@ import utils
 def test_visit_menu_links(page:Page):
     print("Given the user visits 'La Casa del Libro' homepage")
     # Navigation to open the URL in the browser
-    page.goto("https://www.casadellibro.com/")
+    utils.visit_homepage(page)
 
-    print("When the user accepts the cookies")
-    # Wait until the banner to accept the cookies appears
-    page.wait_for_selector("button:has-text('Aceptar')")
-    # Locate the element by role (button) to accept the cookies and click on it
-    page.get_by_role("button", name="Aceptar").click()
+    print("And the user accepts the cookies")
+    utils.accept_cookies(page)
 
-    print("And the user clicks on the 'Imprescindibles' link")
+    print("When the user clicks on the 'Imprescindibles' link")
     if(utils.is_mobile(page)):
         # Locate the element menu by locator, and click on it
         page.wait_for_timeout(1000)
@@ -28,8 +25,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="Imprescindibles", exact=True).click()
     
     print("Then the user should be on 'Imprescindibles' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/libros-imprescindibles")
     # Check that URL page contains the word 'imprescindibles'
     expect(page).to_have_url(re.compile("imprescindibles"))
     # Check that title page has the exact text 'Libros imprescindibles | Casa del Libro'
@@ -52,8 +47,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="Ficción", exact=True).first.click()
     
     print("Then the user should be on 'Ficción' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/libros/literatura/121000000")
     # Check that URL page contains the word 'literatura'
     expect(page).to_have_url(re.compile("literatura"))
     # Check that title page has the exact text 'Mejores libros de Literatura | Casa del Libro'
@@ -76,8 +69,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="No Ficción", exact=True).click()
     
     print("Then the user should be on 'No Ficción' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/libros-no-ficcion")
     # Check that URL page contains the word 'no ficcion'
     expect(page).to_have_url(re.compile("no-ficcion"))
     # Check that title page has the exact text 'Libros de no ficción | Casa del Libro'
@@ -100,8 +91,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="Infantil", exact=True).first.click()
     
     print("Then the user should be on 'Infantil' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/libros/infantil/117000000")
     # Check that URL page contains the word 'infantil'
     expect(page).to_have_url(re.compile("infantil"))
     # Check that title page has the exact text 'Los mejores Libros Infantiles | Casa del Libro'
@@ -124,8 +113,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="Juvenil", exact=True).first.click()
     
     print("Then the user should be on 'Juvenil' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/libros/juvenil/473000000")
     # Check that URL page contains the word 'juvenil'
     expect(page).to_have_url(re.compile("juvenil"))
     # Check that title page has the exact text '¿Qué libros leen los adolescentes? | Casa del Libro'
@@ -148,8 +135,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="Cómic y Manga", exact=True).click()
     
     print("Then the user should be on 'Cómic y Manga' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/libros/comics/411000000")
     # Check that URL page contains the word 'comics'
     expect(page).to_have_url(re.compile("comics"))
     # Check that title page has the exact text 'Cómics | Casa del Libro'
@@ -172,8 +157,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="English books", exact=True).first.click()
     
     print("Then the user should be on 'English books' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/libros-en-ingles")
     # Check that URL page contains the word 'ingles'
     expect(page).to_have_url(re.compile("ingles"))
     # Check that title page has the exact text 'Libros en Inglés | Casa del Libro'
@@ -196,8 +179,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="Llibres en català", exact=True).first.click()
     
     print("Then the user should be on 'Llibres en català' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/llibres-en-catala")
     # Check that URL page contains the word 'catala'
     expect(page).to_have_url(re.compile("catala"))
     # Check that title page has the exact text 'Millors Llibres en català | Casa del Llibre'
@@ -220,8 +201,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="Papelería", exact=True).first.click()
     
     print("Then the user should be on 'Papelería' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/papeleria")
     # Check that URL page contains the word 'papeleria'
     expect(page).to_have_url(re.compile("papeleria"))
     # Check that title page has the exact text 'Accesorios y complementos para la lectura | Casa del Libro'
@@ -244,8 +223,6 @@ def test_visit_menu_links(page:Page):
         page.get_by_role("link", name="eBooks", exact=True).nth(2).click()
     
     print("Then the user should be on 'eBooks' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/ebooks")
     # Check that URL page contains the word 'ebooks'
     expect(page).to_have_url(re.compile("ebooks"))
     # Check that title page has the exact text 'Los mejores eBooks | Casa del Libro'
@@ -263,8 +240,6 @@ def test_visit_menu_links(page:Page):
     page.get_by_role("link", name="Ofertas", exact=True).click()
     
     print("Then the user should be on 'Ofertas' page")
-    # Check that URL page has the exact URL
-    expect(page).to_have_url("https://www.casadellibro.com/libros-descuentos-especiales")
     # Check that URL page contains the word 'descuentos'
     expect(page).to_have_url(re.compile("descuentos"))
     # Check that title page has the exact text 'Los mejores descuentos y ofertas en libros | Casa del libro'

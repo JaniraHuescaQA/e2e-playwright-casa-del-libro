@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import utils
 
 # SCENARIO 1 (invalid email)
 def test_signup_with_invalid_email(page:Page):
@@ -6,13 +7,10 @@ def test_signup_with_invalid_email(page:Page):
     # Navigation to open the URL in the browser
     page.goto("https://www.casadellibro.com/register-access")
 
-    print("When the user accepts the cookies")
-    # Wait until the banner to accept the cookies appears
-    page.wait_for_selector("button:has-text('Aceptar')")
-    # Locate the element by role (button) to accept the cookies and click on it
-    page.get_by_role("button", name="Aceptar").click()
+    print("And the user accepts the cookies")
+    utils.accept_cookies(page)
 
-    print("And the user fills the first name with a valid name")
+    print("When the user fills the first name with a valid name")
     # Clear the first name field
     page.get_by_label("Nombre*").clear()
     # Fill the field with a valid name
@@ -54,13 +52,10 @@ def test_signup_with_empty_first_name(page:Page):
     # Navigation to open the URL in the browser
     page.goto("https://www.casadellibro.com/register-access")
 
-    print("When the user accepts the cookies")
-    # Wait until the banner to accept the cookies appears
-    page.wait_for_selector("button:has-text('Aceptar')")
-    # Locate the element by role (button) to accept the cookies and click on it
-    page.get_by_role("button", name="Aceptar").click()
+    print("And the user accepts the cookies")
+    utils.accept_cookies(page)
 
-    print("And the user leaves empty the first name field")
+    print("When the user leaves empty the first name field")
     # Clear the first name field
     page.get_by_label("Nombre*").clear()
     # Leave the name field empty
@@ -74,7 +69,7 @@ def test_signup_with_empty_first_name(page:Page):
     surname = "Test Surname"
     page.get_by_label("Apellidos*").fill(surname)
 
-    print("And the user fills the email with an invalid email")
+    print("And the user fills the email with an valid email")
     # Clear the email field
     page.get_by_label("Email*").clear()
     # Fill the field with an valid email
