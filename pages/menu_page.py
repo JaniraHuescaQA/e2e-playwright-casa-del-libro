@@ -12,42 +12,45 @@ class MenuPage:
 
     def open_menu(self):
         """ Opens the navigation menu if the viewport is mobile-sized. """
-        if utils.is_mobile(self.page):
-            # Small delay to ensure UI stability
-            self.page.wait_for_timeout(1000)
-            # Locate the element menu by locator, and click on it
-            self.page.locator("button[name='menu']").click()
+        # Small delay to ensure UI stability
+        self.page.wait_for_timeout(1000)
+        # Locate the element menu by locator, and click on it
+        self.page.locator("button[name='menu']").click()
 
-    def click_menu_link(self, category_name: str, subcategory_name: str = None):
-        """ 
-        Clicks on a menu link, considering mobile and desktop versions.
-        Args:
-            category_name (str): The main category name to click.
-            subcategory_name (str, optional): The subcategory name if needed. 
-        """
+    def click_category(self, category_name: str):
+        """Clicks on the main category considering mobile and desktop versions."""
         if utils.is_mobile(self.page):
-            self.open_menu()
             if category_name == "Ofertas":
                 self.page.get_by_role("link", name=category_name, exact=True).click()
-            else:
-                # Locate the element by role (button) and for exact text, and click on it
-                if category_name == "eBooks":
-                    self.page.get_by_role("button", name=category_name, exact=True).first.click()
-                else:
-                    self.page.get_by_role("button", name=category_name, exact=True).click()
-                if subcategory_name:
-                    # Locate the element by role (link), and click on it
-                    self.page.get_by_role("link", name=subcategory_name).click()
+                return
+            self.page.get_by_role("button", name=category_name, exact=True).first.click()
         else:
             # Small delay to ensure UI stability
             self.page.wait_for_timeout(1000)
-            # Locate the element by role (link) and for exact text, and click on it
-            if category_name == "Ficción" or category_name == "Infantil" or category_name == "Juvenil" or category_name == "English books" or category_name == "Llibres en català" or category_name == "Papelería":
-                self.page.get_by_role("link", name=category_name, exact=True).first.click()
-            elif category_name == "eBooks":
-                self.page.get_by_role("link", name="eBooks", exact=True).nth(2).click()
+            if category_name == "eBooks":
+                self.page.get_by_role("link", name=category_name, exact=True).nth(2).click()
             else:
-                self.page.get_by_role("link", name=category_name, exact=True).click()
+                self.page.get_by_role("link", name=category_name, exact=True).first.click()
+    
+    def click_subcategory(self, subcategory_name: str):
+        """Clicks on the subcategory if provided."""
+        if subcategory_name:
+            self.page.get_by_role("link", name=subcategory_name).click()
+
+    def click_menu_link(self, category_name: str, subcategory_name: str = None):
+        """
+        Handles menu clicks for both categories and subcategories.
+        Args:
+            category_name (str): The main category name to click.
+            subcategory_name (str, optional): The subcategory name if needed.
+        """
+        if utils.is_mobile(self.page):
+            self.open_menu()
+        
+        self.click_category(category_name)
+        
+        if utils.is_mobile(self.page):
+            self.click_subcategory(subcategory_name)
 
     def verify_page(self, expected_url_keyword: str, expected_title: str, heading_text: str):
         """ 

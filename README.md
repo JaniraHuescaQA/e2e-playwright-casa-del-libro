@@ -15,7 +15,7 @@ This project performs E2E tests on the [Casa del Libro](https://www.casadellibro
 
 You can view the test status using the following **GitHub Actions** badge:
 
-- ![Test Workflow](https://github.com/JaniraHuescaQA/e2e-playwright-casa-del-libro/actions/workflows/playwright_tests.yml)
+- ![Workflow Status](https://github.com/JaniraHuescaQA/e2e-playwright-casa-del-libro/actions/workflows/playwright_tests.yml/badge.svg)
 
 ## Requirements
 
