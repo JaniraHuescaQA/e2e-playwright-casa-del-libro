@@ -1,248 +1,86 @@
-from playwright.sync_api import Page, expect
-import re
-import utils
+from pages.menu_page import MenuPage
+from pages.home_page import HomePage
+from playwright.sync_api import Page
+import utils.utils as utils
+
 
 def test_visit_menu_links(page:Page):
+    """
+    Test to verify menu navigation functionality.
+    """
+    # Instantiate page objects
+    home_page = HomePage(page)
+    menu_page = MenuPage(page)
+
     print("Given the user visits 'La Casa del Libro' homepage")
     # Navigation to open the URL in the browser
-    utils.visit_homepage(page)
+    home_page.visit()
 
     print("And the user accepts the cookies")
-    utils.accept_cookies(page)
+    home_page.accept_cookies()
 
     print("When the user clicks on the 'Imprescindibles' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="Imprescindibles", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Todo Imprescindibles").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="Imprescindibles", exact=True).click()
+    menu_page.click_menu_link("Imprescindibles", "Todo Imprescindibles")
     
     print("Then the user should be on 'Imprescindibles' page")
-    # Check that URL page contains the word 'imprescindibles'
-    expect(page).to_have_url(re.compile("imprescindibles"))
-    # Check that title page has the exact text 'Libros imprescindibles | Casa del Libro'
-    expect(page).to_have_title("Libros imprescindibles | Casa del Libro")
-    # Locate the element of type 'p' and filter by text 'Libros imprescindibles', and check that is visibe
-    expect(page.locator("p").filter(has_text="Libros imprescindibles")).to_be_visible
-
-    print("When the user clicks on the 'Ficción' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="Ficción", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Todo Ficción").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="Ficción", exact=True).first.click()
+    menu_page.verify_page("imprescindibles", "Libros imprescindibles | Casa del Libro", "Libros imprescindibles")
     
+    print("When the user clicks on the 'Ficción' link")
+    menu_page.click_menu_link("Ficción", "Todo Ficción")
+
     print("Then the user should be on 'Ficción' page")
-    # Check that URL page contains the word 'literatura'
-    expect(page).to_have_url(re.compile("literatura"))
-    # Check that title page has the exact text 'Mejores libros de Literatura | Casa del Libro'
-    expect(page).to_have_title("Mejores libros de Literatura | Casa del Libro")
-    # Locate the element by role (heading) and for exact text, and check that is visibe
-    expect(page.get_by_role("heading", name="Libros de Literatura", exact=True)).to_be_visible
+    menu_page.verify_page("literatura", "Mejores libros de Literatura | Casa del Libro", "Libros de Literatura")
 
     print("When the user clicks on the 'No Ficción' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="No Ficción", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Todo No Ficción").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="No Ficción", exact=True).click()
+    menu_page.click_menu_link("No Ficción", "Todo No Ficción")
     
     print("Then the user should be on 'No Ficción' page")
-    # Check that URL page contains the word 'no ficcion'
-    expect(page).to_have_url(re.compile("no-ficcion"))
-    # Check that title page has the exact text 'Libros de no ficción | Casa del Libro'
-    expect(page).to_have_title("Libros de no ficción | Casa del Libro")
-    # Locate the element by role (heading) and for text, and check that is visibe
-    expect(page.get_by_role("heading", name="Libros de no ficción")).to_be_visible
+    menu_page.verify_page("no-ficcion", "Libros de no ficción | Casa del Libro", "Libros de no ficción: autoayuda, ciencias, historia, cocina...")
 
     print("When the user clicks on the 'Infantil' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="Infantil", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Todo Infantil").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="Infantil", exact=True).first.click()
+    menu_page.click_menu_link("Infantil", "Todo Infantil")
     
     print("Then the user should be on 'Infantil' page")
-    # Check that URL page contains the word 'infantil'
-    expect(page).to_have_url(re.compile("infantil"))
-    # Check that title page has the exact text 'Los mejores Libros Infantiles | Casa del Libro'
-    expect(page).to_have_title("Los mejores Libros Infantiles | Casa del Libro")
-    # Locate the element by role (heading) and for exact text, and check that is visibe
-    expect(page.get_by_role("heading", name="Libros infantiles", exact=True)).to_be_visible
+    menu_page.verify_page("infantil", "Los mejores Libros Infantiles | Casa del Libro", "Libros infantiles")
 
     print("When the user clicks on the 'Juvenil' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="Juvenil", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Todo Juvenil").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="Juvenil", exact=True).first.click()
+    menu_page.click_menu_link("Juvenil", "Todo Juvenil")
     
     print("Then the user should be on 'Juvenil' page")
-    # Check that URL page contains the word 'juvenil'
-    expect(page).to_have_url(re.compile("juvenil"))
-    # Check that title page has the exact text '¿Qué libros leen los adolescentes? | Casa del Libro'
-    expect(page).to_have_title("¿Qué libros leen los adolescentes? | Casa del Libro")
-    # Locate the element by role (heading) and for text, and check that is visibe
-    expect(page.get_by_role("heading", name="Libros para Jóvenes")).to_be_visible
+    menu_page.verify_page("juvenil", "¿Qué libros leen los adolescentes? | Casa del Libro", "Libros para Jóvenes Lectores")
 
     print("When the user clicks on the 'Cómic y Manga' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="Cómic y Manga", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Cómic y Manga").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="Cómic y Manga", exact=True).click()
+    menu_page.click_menu_link("Cómic y Manga", "Todo Cómic y Manga")
     
     print("Then the user should be on 'Cómic y Manga' page")
-    # Check that URL page contains the word 'comics'
-    expect(page).to_have_url(re.compile("comics"))
-    # Check that title page has the exact text 'Cómics | Casa del Libro'
-    expect(page).to_have_title("Cómics | Casa del Libro")
-    # Locate the element by role (heading) and for text, and check that is visibe
-    expect(page.get_by_role("heading", name="Cómics")).to_be_visible
+    menu_page.verify_page("comics", "Cómics | Casa del Libro", "Cómics")
 
     print("When the user clicks on the 'English books' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="English books", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Todo English books").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="English books", exact=True).first.click()
-    
+    menu_page.click_menu_link("English books", "Todo English books")
+
     print("Then the user should be on 'English books' page")
-    # Check that URL page contains the word 'ingles'
-    expect(page).to_have_url(re.compile("ingles"))
-    # Check that title page has the exact text 'Libros en Inglés | Casa del Libro'
-    expect(page).to_have_title("Libros en Inglés | Casa del Libro")
-    # Locate the element by role (heading) and for exact text, and check that is visibe
-    expect(page.get_by_role("heading", name="Libros en Inglés", exact=True)).to_be_visible
+    menu_page.verify_page("ingles", "Libros en Inglés | Casa del Libro", "Libros en Inglés")
 
     print("When the user clicks on the 'Llibres en català' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="Llibres en català", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Llibres en català").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="Llibres en català", exact=True).first.click()
+    menu_page.click_menu_link("Llibres en català", "Todo Llibres en català")
     
     print("Then the user should be on 'Llibres en català' page")
-    # Check that URL page contains the word 'catala'
-    expect(page).to_have_url(re.compile("catala"))
-    # Check that title page has the exact text 'Millors Llibres en català | Casa del Llibre'
-    expect(page).to_have_title("Millors Llibres en català | Casa del Llibre")
-    # Locate the element by role (heading) and for exact text, and check that is visibe
-    expect(page.get_by_role("heading", name="Llibres en català", exact=True)).to_be_visible
+    menu_page.verify_page("catala", "Millors Llibres en català | Casa del Llibre", "Llibres en català")
 
     print("When the user clicks on the 'Papelería' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="Papelería", exact=True).click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Todo Papelería").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="Papelería", exact=True).first.click()
+    menu_page.click_menu_link("Papelería", "Todo Papelería")
     
     print("Then the user should be on 'Papelería' page")
-    # Check that URL page contains the word 'papeleria'
-    expect(page).to_have_url(re.compile("papeleria"))
-    # Check that title page has the exact text 'Accesorios y complementos para la lectura | Casa del Libro'
-    expect(page).to_have_title("Accesorios y complementos para la lectura | Casa del Libro")
-    # Locate the element by role (heading) and for exact text, and check that is visibe
-    expect(page.get_by_role("heading", name="Papelería y regalo", exact=True)).to_be_visible
+    menu_page.verify_page("papeleria", "Accesorios y complementos para la lectura | Casa del Libro", "Papelería y regalo")
 
     print("When the user clicks on the 'eBooks' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-        # Locate the element by role (button) and for exact text, and click on it
-        page.get_by_role("button", name="eBooks", exact=True).first.click()
-        # Locate the element by role (link), and click on it
-        page.get_by_role("link", name="Todo eBooks").click()
-    else:
-        # Locate the element by role (link) and for exact text, and click on it
-        page.wait_for_timeout(1000)
-        page.get_by_role("link", name="eBooks", exact=True).nth(2).click()
+    menu_page.click_menu_link("eBooks", "Todo eBooks")
     
     print("Then the user should be on 'eBooks' page")
-    # Check that URL page contains the word 'ebooks'
-    expect(page).to_have_url(re.compile("ebooks"))
-    # Check that title page has the exact text 'Los mejores eBooks | Casa del Libro'
-    expect(page).to_have_title("Los mejores eBooks | Casa del Libro")
-    # Locate the element by role (heading) and for text, and check that is visibe
-    expect(page.get_by_role("heading", name="eBooks")).to_be_visible
+    menu_page.verify_page("ebooks", "Los mejores eBooks | Casa del Libro", "eBooks")
 
     print("When the user clicks on the 'Ofertas' link")
-    if(utils.is_mobile(page)):
-        # Locate the element menu by locator, and click on it
-        page.wait_for_timeout(1000)
-        page.locator("button[name='menu']").click()
-    # Locate the element by role (link) and for exact text, and click on it
-    page.wait_for_timeout(1000)
-    page.get_by_role("link", name="Ofertas", exact=True).click()
-    
+    menu_page.click_menu_link("Ofertas")
+
     print("Then the user should be on 'Ofertas' page")
-    # Check that URL page contains the word 'descuentos'
-    expect(page).to_have_url(re.compile("descuentos"))
-    # Check that title page has the exact text 'Los mejores descuentos y ofertas en libros | Casa del libro'
-    expect(page).to_have_title("Los mejores descuentos y ofertas en libros | Casa del libro")
-    # Locate the element of type 'p' and filter by text 'Libros en promoción', and check that is visibe
-    expect(page.locator("p").filter(has_text="Libros en promoción")).to_be_visible
+    menu_page.verify_page("descuentos", "Los mejores descuentos y ofertas en libros | Casa del libro", "Libros en promoción")
