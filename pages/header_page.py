@@ -2,10 +2,10 @@ from playwright.sync_api import Page, expect
 import re
 import utils.utils as utils
 
-class MenuPage:
+class HeaderPage:
     def __init__(self, page: Page):
         """ 
-        Constructor to initialize the MenuPage class with the Playwright Page object.
+        Constructor to initialize the HeaderPage class with the Playwright Page object.
         This allows us to interact with the webpage. 
         """
         self.page = page
@@ -66,3 +66,7 @@ class MenuPage:
         expect(self.page).to_have_title(expected_title)
         # Locate the element of type 'heading' and filter by {heading_text}, and check that is visibe
         expect(self.page.get_by_role("heading", name=heading_text, exact=True)).to_be_visible()
+
+    def go_to_my_account(self):
+        """ Clicks on the account button to open the My Account menu """
+        self.page.locator("#b-u-nl").click()
