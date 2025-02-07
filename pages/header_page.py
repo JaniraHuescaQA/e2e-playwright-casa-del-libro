@@ -70,3 +70,14 @@ class HeaderPage:
     def go_to_my_account(self):
         """ Clicks on the account button to open the My Account menu """
         self.page.locator("#b-u-nl").click()
+
+    def search(self, query: str):
+        """ Performs a search using the search bar """
+        self.page.wait_for_timeout(1000)
+        self.page.get_by_placeholder("Busca por autor, título, género, ISBN").click()
+        self.page.wait_for_timeout(1000)
+        search_input = self.page.locator("[data-test=\"search-input\"]")
+        search_input.click()
+        search_input.clear()
+        search_input.fill(query)
+        search_input.press("Enter")
