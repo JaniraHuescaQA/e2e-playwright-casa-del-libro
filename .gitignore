@@ -8,3 +8,4 @@ screenshots/
 *.json
 *.css
 *.html
+/pages/__pycache__
