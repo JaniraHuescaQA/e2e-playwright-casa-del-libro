@@ -9,6 +9,17 @@ class LoginPage:
         """
         self.page = page    
 
+    def disable_hover_for_modals(self):
+        """ 
+        Disables hover interactions and hides the floating menu modal that appears when the user hovers over certain elements. 
+        This prevents unwanted modals from appearing and potentially blocking important UI elements during automated tests. 
+        """
+        self.page.add_style_tag(content="""
+        .floating-menu {
+            display: none !important;
+        }
+        """)
+
     def fill_email(self, email: str):
         """ Clears and fills the email field """
         self.page.get_by_label("Email*").clear()
@@ -21,7 +32,7 @@ class LoginPage:
 
     def click_login_button(self):
         """ Clicks on the login button """
-        self.page.get_by_role("button", name="iniciar sesión").click()
+        self.page.get_by_role("button", name="iniciar sesión").click(force=True)
     
     def verify_login(self):
         expect(self.page.locator('img[src="/img/cabecera/ico_usuario_check.svg"]')).to_be_visible()

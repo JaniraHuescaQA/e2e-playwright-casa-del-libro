@@ -21,6 +21,7 @@ def test_login_with_invalid_email(page):
 
     print("When the user fills the signup form with invalid email")
     login_page = LoginPage(page)
+    login_page.disable_hover_for_modals()
     login_page.fill_email("janirahuesc@gmail.com")  # Invalid email
     login_page.fill_password("ABCdef123!")
     login_page.click_login_button()
@@ -46,6 +47,7 @@ def test_login_with_empty_password(page):
 
     print("When the user leaves the password field empty")
     login_page = LoginPage(page)
+    login_page.disable_hover_for_modals()
     login_page.fill_email("janirahuesca@gmail.com")
     login_page.fill_password("") # Empty password
     login_page.click_login_button()
