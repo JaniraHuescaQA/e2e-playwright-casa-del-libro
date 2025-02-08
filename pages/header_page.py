@@ -12,25 +12,23 @@ class HeaderPage:
 
     def open_menu(self):
         """ Opens the navigation menu if the viewport is mobile-sized. """
-        # Small delay to ensure UI stability
-        self.page.wait_for_timeout(1000)
-        # Locate the element menu by locator, and click on it
+        self.page.wait_for_timeout(500) # Small delay to ensure UI stability
         self.page.locator("button[name='menu']").click()
 
-    def click_category(self, category_name: str):
-        """Clicks on the main category considering mobile and desktop versions."""
-        if utils.is_mobile(self.page):
-            if category_name == "Ofertas":
-                self.page.get_by_role("link", name=category_name, exact=True).click()
-                return
-            self.page.get_by_role("button", name=category_name, exact=True).first.click()
+    def click_category_mobile(self, category_name: str):
+        """Clicks the category in mobile version (special logic for 'Ofertas')."""
+        if category_name == "Ofertas":
+            self.page.get_by_role("link", name=category_name, exact=True).click()
         else:
-            # Small delay to ensure UI stability
-            self.page.wait_for_timeout(1000)
-            if category_name == "eBooks":
-                self.page.get_by_role("link", name=category_name, exact=True).nth(2).click()
-            else:
-                self.page.get_by_role("link", name=category_name, exact=True).first.click()
+            self.page.get_by_role("button", name=category_name, exact=True).first.click()
+
+    def click_category_desktop(self, category_name: str):
+        """Clicks the category in desktop version (handles 'eBooks' separately)."""
+        self.page.wait_for_timeout(500) # Small delay for UI stability
+        if category_name == "eBooks":
+            self.page.get_by_role("link", name=category_name, exact=True).nth(2).click()
+        else:
+            self.page.get_by_role("link", name=category_name, exact=True).first.click()
     
     def click_subcategory(self, subcategory_name: str):
         """Clicks on the subcategory if provided."""
@@ -39,18 +37,18 @@ class HeaderPage:
 
     def click_menu_link(self, category_name: str, subcategory_name: str = None):
         """
-        Handles menu clicks for both categories and subcategories.
+        Handles menu clicks for both categories and subcategories (mobile/desktop).
         Args:
             category_name (str): The main category name to click.
             subcategory_name (str, optional): The subcategory name if needed.
         """
         if utils.is_mobile(self.page):
             self.open_menu()
-        
-        self.click_category(category_name)
-        
-        if utils.is_mobile(self.page):
-            self.click_subcategory(subcategory_name)
+            self.click_category_mobile(category_name)
+            if subcategory_name:
+                self.click_subcategory(subcategory_name)
+        else:
+            self.click_category_desktop(category_name)
 
     def verify_page(self, expected_url_keyword: str, expected_title: str, heading_text: str):
         """ 
