@@ -24,7 +24,7 @@ class HeaderPage:
 
     def click_category_desktop(self, category_name: str):
         """Clicks the category in desktop version (handles 'eBooks' separately)."""
-        self.page.wait_for_timeout(500) # Small delay for UI stability
+        self.page.wait_for_timeout(1000) # Small delay for UI stability
         if category_name == "eBooks":
             self.page.get_by_role("link", name=category_name, exact=True).nth(2).click()
         else:
