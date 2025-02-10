@@ -27,4 +27,5 @@ class ResultsPage:
     
     def click_on_result(self, product_name: str):
         """ Clicks on a product in the results list """
-        self.page.get_by_role("link", name=product_name, exact=True).click()
+        product_locator = self.page.locator(f"[data-test='result-title']", has_text=product_name)
+        product_locator.first.click()

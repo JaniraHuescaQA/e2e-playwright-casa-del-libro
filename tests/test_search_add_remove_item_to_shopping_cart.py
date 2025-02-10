@@ -25,7 +25,7 @@ def test_search_add_remove_item_to_cart(page:Page):
     resuls_page.verify_results_contain_search(search_query)
 
     print("When the user clicks on the desired result")
-    product_name = "HARRY POTTER Y LA PIEDRA FILOSOFAL"
+    product_name = "HARRY POTTER Y LA CAMARA SECRETA"
     resuls_page.click_on_result(product_name)
 
     print("And the user adds the item to the shopping cart")
