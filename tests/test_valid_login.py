@@ -20,7 +20,8 @@ def test_succesful_login(page):
 
     print("When the user fills the signup form with valid email and password")
     login_page = LoginPage(page)
-    login_page.fill_email("janirahuesca@gmail.com")  # Invalid email
+    login_page.disable_hover_for_modals()
+    login_page.fill_email("janirahuesca@gmail.com")
     login_page.fill_password("ABCdef123!")
     login_page.click_login_button()
 

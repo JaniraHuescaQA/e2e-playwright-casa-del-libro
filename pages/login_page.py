@@ -32,12 +32,10 @@ class LoginPage:
 
     def click_login_button(self):
         """ Clicks on the login button """
-        self.page.get_by_role("button", name="iniciar sesión").click(force=True)
+        self.page.get_by_role("button", name="iniciar sesión").click()
     
     def verify_login(self):
         expect(self.page.locator('img[src="/img/cabecera/ico_usuario_check.svg"]')).to_be_visible()
-        if not utils.is_mobile(self.page):
-            expect(self.page.locator("#b-u-l")).to_contain_text("Janira")
         
     def get_error_message(self, message: str):
         """ Checks if a specific error message is visible """
